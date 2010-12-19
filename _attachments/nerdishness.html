@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>a glob of nerdishness</title>
+</head>
+<body>
+
+<header>
+<img src="nerdishness-large.png" style="height: 200px">
+<h1>a glob of nerdishness</h1>
+Powered by work over time.
+<p>
+Written by <a href="http://twitter.com/natevw">@natevw</a>, who is interested in things but <em>not</em> a real doctor.
+</header>
+
+<article>
+<header>
+<h1><a href="" rel="bookmark">Building CouchDB for PowerPC on Mac OS X 10.5 Leopard</a></h1>
+<date datetime="2010-11-27T08:52-08:00" pubdate>2010 November 27, 8:52 pm</date>
+</header>
+
+<p>
+My first Mac was a G4 mini which now mostly just serves an external drive to our home network as a Time Machine backup destination. Since it's powered up 24/7, I've been wanting to make a bit more use of it as a server, which means <a href="http://couchdb.apache.org/">Couch</a> of course.
+<p>
+Unfortunately, the process wasn't terribly "relaxing" — I couldn't find a PPC build of CouchDB for Mac OS X on the ENTIRE INTERNETS. Yet fortunately, after who knows how many hours of blood, sweat and swearing under my breath, I was able to coax out a working build. For the 3 other CouchDB fans out there who still have a PowerPC machine plugged in and enjoy sysadmin pain, here are my build notes:
+<ol>
+<li>First, install git if necessary and follow the instructions for the <a href="https://github.com/couchone/build-couchdb">build-couchdb</a> helper scripts until the "rake" part.
+<li>To avoid a mktmpdir issue in rake, you'll need to get a Ruby 1.8.7 version of Rake working. I don't recommend this route, but when it was all said and done I moved aside /usr/bin/ruby, /usr/bin/rake and /usr/bin/gem (each to /usr/bin/<i>X</i>-orig) and then followed the first few steps of <a href="http://hivelogic.com/articles/ruby-rails-leopard#ruby">these instructions</a> to get newer versions working out of /usr/local/bin instead.
+<li>To avoid an unsupported architecture crash-and-burn, you'll need to go into build-couchdb/tasks/erlang.rake and comment out a 64-bit option line: <code>#configure.push '--enable-darwin-64bit' if DISTRO[0] == :osx</code>
+<li>The CouchDB build doesn't like the Leopard version of libcurl, so build and install <a href="http://curl.haxx.se/libcurl/">the latest from source</a>. Temporarily move /usr/bin/curl-config to /usr/bin/curl-config-orig so the build process will use the right curl libraries. (Again, there's maybe a better way to do this, but I wasn't feeling picky at this point...)
+</ol>
+
+<p>
+If any of that made any sense, and I didn't forget anything, you may even be able to reproduce this on your own PowerPC Mac at your own risk. PLEASE PLEASE PLEASE let me know if there's a better way to get build-couchdb using the right versions of Ruby and libcurl without desperately mucking around in /usr/bin like I did.
+</article>
+
+
+<article>
+<header>
+<h1><a href="" rel="bookmark">Fourth generation iPod touch camera focal lengths</a></h1>
+<date datetime="2010-11-16T09:16-08:00" pubdate>2010 November 16, 9:16 pm</date>
+</header>
+	
+<p>
+Late one night soon after I bought my fourth generation iPod touch, I did some sloppy measurements to try figure out the 35mm equivalent focal length of each of its two cameras. Here is a sloppy summary of my findings.
+
+<p>
+<img src="http://www.extinguishedscholar.com/wpglob/wp-content/uploads/IMG_0101-300x225.jpg" alt="View from the iPod" title="View from the iPod">
+
+<p>
+The display on my MacBook is 11 5/16 inches wide (287.3375 mm). It fills the back ("720p") camera width at a distance of 14 3/16 inches (360.3625 mm). It fills the front ("FaceTime") camera width at distance of 11 inches (279.4 mm).
+
+<figure>
+<img src="http://www.extinguishedscholar.com/wpglob/wp-content/uploads/iPod-focal-length-setup.png" alt="iPod focal length setup" title="iPod focal length setup">
+</figure>
+
+<p>
+Using some <a href="http://en.wikipedia.org/wiki/Angle_of_view">basic trigonometry</a>:<br>
+<code>
+a = 2 arctan (d/2f)   # a = angle, d = dimension (my "width"), f = focal length, or, subject distance
+</code><br>
+...we can find each camera lens's angle of view:<br>
+<code>
+2*Math.atan2(287.3375, 2*360.3625) = 0.7587331199535923 radians (43.47 degrees)<br>
+2*Math.atan2(287.3375, 2* 279.4) = 0.9498931263447237 radians (54.42 degrees)
+</code>
+
+<p>
+Standard <a href="http://en.wikipedia.org/wiki/135_film">135 film</a> is 35mm wide, and it is on this format I wanted to figure out the iPod lens equivalent. I massaged the angle of view calculation into a form that could yield a focal length based on an angle:<br>
+<code>
+tan(a/2) = d/2/f
+</code><br>
+For 35mm equivalent, I plugged in 35 for d ("dimension", my "width") and solved for focal length as a function of angle:<br>
+<code>
+tan(a/2) = 17.5/f<br>
+f = 17.5/tan(a/2)
+</code>
+
+<p>
+So, the front ("720p") camera has a focal length equivalent to a 44.9mm lens on a 35mm film camera body (or a 27.44mm lens on an APS-C body). The back "FaceTime" camera is wider, equivalent to a 34.0mm lens on a 35mm film body (or a 21.25mm lens on an APS-C body)
+
+<p>
+Then I looked at the EXIF metadata to see what it says about the camera. For the 720p camera, the metadata records a focal length of 3.9mm. If my 35mm equivalent focal length calculations are correct, this means a <a href="http://en.wikipedia.org/wiki/Crop_factor">crop factor</a> of 11.26 and thus a 3.11mm sensor width.
+
+<p>
+Now for the FaceTime camera, the EXIF metadata records a focal length of 3.9mm. Again? So allegedly this would be a 8.72 crop factor and 4.02mm sensor size. However, this camera is lower resolution (640×480 versus 960×720) and I have a hard time believing that it is a larger sensor. (If it were, the per-pixel area would be significantly larger and I'd expect much better quality and low light performance than the back camera.) I suspect the focal length metadata is (or at least was when I first looked...I should check again on the latest iOS) simply wrong for pictures taken with the FaceTime camera.
+</article>
+
+
+<footer>
+<small>Copyright © 2007–2011 Nathan Vander Wilt. All rights reserved. Limit one offer per coupon.</small>
+</footer>
+
+</body>
+</html>

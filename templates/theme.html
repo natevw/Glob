@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>a glob of nerdishness</title>
+</head>
+<body>
+
+<header>
+<img src="../../logo.png">
+<h1>a glob of nerdishness</h1>
+Powered by work over time.
+<p>
+Written by <a href="http://twitter.com/natevw">@natevw</a>, who is interested in things but <em>not</em> a real doctor.
+</header>
+
+{{# post }}
+<article>
+<header>
+<h1>{{#link}}<a href="{{ url }}" rel="bookmark">{{ title }}</a>{{/link}}{{^link}}{{ title }}{{/link}}</h1>
+<date datetime="{{ time_iso }}" pubdate>{{ time_human }}</date>
+</header>
+
+{{{ html_content }}}
+
+{{> comments }}
+</article>
+{{/ post }}
+
+<footer>
+<small>Copyright © 2007–2011 Nathan Vander Wilt. All rights reserved. Limit one offer per coupon.</small>
+</footer>
+
+</body>
+</html>
