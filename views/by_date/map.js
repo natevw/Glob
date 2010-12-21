@@ -1,7 +1,9 @@
 function(doc) {
-	if (!doc.timestamp) return;
-	
-	// !code lib/date.js
-	
-	emit(toComponentsUTC(dateFromRFC3399(doc.timestamp)));
+    if (!doc.published) return;
+    
+    var exports = {};
+    // !code lib/date.js
+    var date = exports;
+    
+    emit(date.toUTCComponents(date.newDate(doc.published)));
 }
