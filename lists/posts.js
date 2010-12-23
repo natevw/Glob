@@ -6,8 +6,9 @@ function(head, req) {
     
     provides("html", function () {
         var Mustache = require("lib/mustache");
+        var postToTheme = require("lib/glob").postToTheme;
         
-        var list = function () { var row = getRow(); return row && row.doc; }
+        var list = function () { var row = getRow(); return row && postToTheme(row.doc); }
         list.iterator = true;
         return Mustache.to_html(ddoc.templates.theme, {multiple:true, post:list}, ddoc.templates.partials);
     });
