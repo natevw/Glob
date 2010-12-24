@@ -17,7 +17,7 @@ Written by <a href="http://twitter.com/natevw">@natevw</a>, who is interested in
 {{# post }}
 <article>
 <header>
-<h1>{{#link}}<a href="{{ url }}" rel="bookmark">{{ title }}</a>{{/link}}{{^link}}{{ title }}{{/link}}</h1>
+<h1>{{#url}}<a href="{{ url }}" rel="bookmark">{{ title }}</a>{{/url}}{{^url}}{{ title }}{{/url}}</h1>
 <date datetime="{{ published }}" pubdate>{{ published_human }}</date>
 </header>
 

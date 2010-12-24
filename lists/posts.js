@@ -7,8 +7,8 @@ function(head, req) {
     provides("html", function () {
         var Mustache = require("lib/mustache");
         var postToTheme = require("lib/glob").postToTheme;
-        
-        var list = function () { var row = getRow(); return row && postToTheme(row.doc); }
+        var path = require("lib/path").init(req);
+        var list = function () { var row = getRow(); return row && postToTheme(row.doc, path.show('post', row.id)); }
         list.iterator = true;
         return Mustache.to_html(ddoc.templates.theme, {multiple:true, post:list}, ddoc.templates.partials);
     });
@@ -16,12 +16,6 @@ function(head, req) {
         // copied liberally from https://github.com/jchris/sofa/blob/master/lists/index.js
         var Atom = require("lib/atom");
         var toRFC3339 = require("lib/date").toRFC3339;
-        
-        function postPath(id) {
-            // after https://github.com/couchapp/couchapp/blob/master/vendor/lib/path.js
-            var p = req.path, parts = ['', p[0], p[1] , p[2], '_show', 'post', id];
-            return parts.map(encodeURIComponent).join('/');
-        }
         
         // load the first row to find the most recent change date
         var row = getRow();
