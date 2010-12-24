@@ -1,0 +1,17 @@
+[{
+    "from": "/blog/",
+    "to": "_list/posts/by_date",
+    "query": {
+        "reduce": false,
+        "descending":true,
+        "limit": 5,
+        "include_docs": true
+    }
+},{
+    "from": "/blog/:path",
+    "to": "_list/posts/by_path",
+    "query": {
+        "include_docs": true,
+        "key": ":path"
+    }
+}]
