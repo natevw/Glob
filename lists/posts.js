@@ -8,12 +8,14 @@ function(head, req) {
         var Mustache = require("lib/mustache");
         var postToTheme = require("lib/glob").postToTheme;
         var path = require("lib/path").init(req);
-        var list = function () { var row = getRow(); return row && postToTheme(row.doc, path.show('post', row.id)); }
+        var list = function () { var row = getRow(); return row && postToTheme(row.doc); }
         list.iterator = true;
-        return Mustache.to_html(ddoc.templates.theme, {multiple:true, post:list}, ddoc.templates.partials);
+        var single = Boolean(req.query.key);    // assume only one post per view key
+        var post = (single) ? list() : list;
+        return Mustache.to_html(ddoc.templates.theme, {single:single, post:post}, ddoc.templates.partials);
     });
-    provides("atom", function() {
-        // copied liberally from https://github.com/jchris/sofa/blob/master/lists/index.js
+    provides("atom", function () {
+        // hat tip to https://github.com/jchris/sofa/blob/master/lists/index.js
         var Atom = require("lib/atom");
         var toRFC3339 = require("lib/date").toRFC3339;
         
@@ -32,5 +34,8 @@ function(head, req) {
         }
         
         send(Atom.footer());
+    });
+    provides("json", function() {
+        return JSON.stringify(req, null, 4);
     });
 }
