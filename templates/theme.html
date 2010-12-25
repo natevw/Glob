@@ -10,15 +10,17 @@
 <img src="../../logo.png">
 <h1>a glob of nerdishness</h1>
 Powered by work over time.
+<!--
 <p>
 Written by <a href="http://twitter.com/natevw">@natevw</a>, who is interested in things.
+-->
 </header>
 
 {{# post }}
 <article>
 <header>
 <h1>{{#url}}<a href="{{ url }}" rel="bookmark">{{ title }}</a>{{/url}}{{^url}}{{ title }}{{/url}}</h1>
-<date datetime="{{ published }}" pubdate>{{ published_human }}</date>
+<time datetime="{{ published }}" pubdate>{{ published_human }}</time>
 </header>
 
 {{{ html_content }}}
