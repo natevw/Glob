@@ -13,39 +13,62 @@
     a { outline-style: none; }
 </style>
 <style>
-    body { min-width: 400px; }
+    body { min-width: 475px; }
     body { font-family: Palatino; font-size: 90%; }
     header { font-family: Monaco, monospace; }
+    footer { margin: 0.5em; font-family: Monaco, monospace; }
     
-    body header { padding-top: 0em; }
-    body header img { float: left; }
-    body header.single img { height: 125px; }
-    body header h1 { font-size: 250%; margin: 0em; }
+    body > header { padding-top: 0em; }
+    body > header img { float: left; height: 200px; }
+    body > header.single img { height: 100px; }
+    body > header p { font-size: 80%; font-style: italic; margin: 0em; padding-top: 2em; }
+    body > header h1 { font-size: 250%; margin: 0em; }
+    body > header h2 { font-size: 90%; font-weight: normal; margin: 0em; }
     
     article { clear: both; padding: 2em; max-width: 50em; }
     article { text-align: justify; line-height: 1.5em; }
-    article header h1 { font-size: 125%; margin-bottom: 0em; }
-    p { margin-bottom: 0em; }
-    p + p { text-indent: 1.5em; margin-top: 0em; }
+    article > header h1 { font-size: 125%; margin: 0em; }
+    article > header p { font-size: 90%; margin: 0em; padding: 0em; }
+    article p { margin-bottom: 0em; }
+    article p + p { text-indent: 1.5em; margin-top: 0em; }
+    
+    a:link { color: #008; }
+    a:visited { color: #559; }
+    a:hover { color: #900; }
+    
+    a:link.subtle  { color: inherit; text-decoration: none; }
+    a:visited.subtle  { color: inherit; text-decoration: none; }
+    a:hover.subtle { color: #008; text-decoration: underline; }
+    
+    a:link.expected  { color: inherit; }
+    a:visited.expected  { color: inherit; }
+    a:hover.expected { color: #008; }
 </style>
 </head>
 <body>
 
-<header>
+<header{{#single}} class="single"{{/single}}>
 <img src="../../logo.png">
-<h1>a glob of nerd­ish­ness</h1>
-Powered by work over time.
-<!--
+{{^single}}
 <p>
-Written by <a href="http://twitter.com/natevw">@natevw</a>, who is interested in things.
--->
+<a href="http://twitter.com/natevw" class="subtle">natevw</a> proudly presents:
+{{/single}}
+<h1>a glob of nerd­ish­ness</h1>
+<h2>Powered by work over time.</h2>
 </header>
 
 {{# post }}
 <article>
 <header>
-<h1>{{#url}}<a href="{{ url }}" rel="bookmark">{{ title }}</a>{{/url}}{{^url}}{{ title }}{{/url}}</h1>
+{{#single}}
+<h1>{{ title }}</h1>
+<p>
+written by <a href="http://twitter.com/natevw" class="subtle">natevw</a> on <time datetime="{{ published }}" pubdate>{{ published_human }}</time>
+{{/single}}
+{{^single}}
 <time datetime="{{ published }}" pubdate>{{ published_human }}</time>
+<h1><a href="{{ url }}" rel="bookmark" class="expected">{{ title }}</a></h1>
+{{/single}}
 </header>
 
 {{{ html_content }}}
