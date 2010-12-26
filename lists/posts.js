@@ -1,6 +1,7 @@
 function(head, req) {
     var ddoc = this;
     var path = path = require("lib/path").init(req);
+    
     var indexPath = path.list('posts','by_date',{reduce:false, descending:true, limit:10, include_docs:true});
     var feedPath = path.list('posts','by_date',{reduce:false, descending:true, limit:10, include_docs:true, format:"atom"});
     
@@ -8,11 +9,14 @@ function(head, req) {
         var Mustache = require("lib/mustache");
         var postToTheme = require("lib/glob").postToTheme;
         var path = require("lib/path").init(req);
-        var list = function () { var row = getRow(); return row && postToTheme(row.doc); }
+        var list = function () { var row = getRow(); return row && postToTheme(row.doc, ddoc.blog.base_url); }
         list.iterator = true;
-        var single = Boolean(req.query.key);    // assume only one post per view key
-        var post = (single) ? list() : list;
-        return Mustache.to_html(ddoc.templates.theme, {single:single, post:post}, ddoc.templates.partials);
+        
+        var data = {};
+        data.single = Boolean(req.query.key);    // assume only one post per view key
+        data.post = (data.single) ? list() : list;
+        data.base_url = ddoc.blog.base_url;
+        return Mustache.to_html(ddoc.templates.theme, data, ddoc.templates.partials);
     });
     provides("atom", function () {
         // hat tip to https://github.com/jchris/sofa/blob/master/lists/index.js
@@ -28,7 +32,7 @@ function(head, req) {
         
         while (row) {
             var post = row.doc;
-            post.alternate = path.absolute(path.show('post', row.id));
+            post.alternate = ddoc.blog.base_url + post.path;
             send(Atom.entry(post));
             row = getRow();
         }

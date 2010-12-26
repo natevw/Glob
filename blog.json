@@ -1,5 +1,7 @@
 {
    "title": "a glob of nerdishness",
    "author": "Nathan Vander Wilt",
-   "uri": "http://www.extinguishedscholar.com/wpglob/?feed=atom"
+   "uri": "http://www.extinguishedscholar.com/wpglob/?feed=atom",
+   "base_url-real": "http://nerdishness.extinguishedscholar.com/blog/",
+   "base_url": "http://localhost:5984/dev/_design/glob/_rewrite/blog/"
 }
