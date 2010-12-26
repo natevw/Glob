@@ -53,7 +53,7 @@
 <body>
 
 <header{{#single}} class="single"{{/single}}>
-<img src="../../logo.png">
+<img src="{{ base_url}}../../logo.png">
 {{#single}}
 <h1><a href="{{ base_url }}" rel="archives" class="subtle">a glob of nerd­ish­ness</a></h1>
 {{/single}}{{^single}}
@@ -83,10 +83,16 @@ written by <a href="http://twitter.com/natevw" class="subtle">natevw</a> on <tim
 </article>
 {{/ post }}
 
-{{^single}}{{#lastRow}}
+{{^single}}{{^summary}}{{#lastRow}}
 <p>
-<a href="{{ base_url }}?startkey={{ key }}&startkey_docid={{ id }}&skip=1" rel="next">Older posts</a>
-{{/lastRow}}{{/single}}
+<a href="{{ base_url }}?startkey={{ key }}&startkey_docid={{ id }}&skip=1" rel="next">Older posts</a><br>
+<a href="{{ base_url }}all/" rel="archives">All posts</a>
+{{/lastRow}}{{/summary}}{{/single}}
+
+{{#summary}}{{#lastRow}}
+<p>
+<a href="{{ base_url }}">Recent posts</a>
+{{/lastRow}}{{/summary}}
 
 {{^lastRow}}
 <!-- this really should be an actual lower-level 404 instead -->

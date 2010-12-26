@@ -6,10 +6,20 @@ function(head, req) {
         var postToTheme = require("lib/glob").postToTheme;
         var path = require("lib/path").init(req);
         var lastRow;
-        var list = function () { var row = getRow(); return row && (lastRow = row) && postToTheme(row.doc, ddoc.blog.base_url); }
+        var list = function () {
+            var row = getRow();
+            if (row) {
+                lastRow = row;
+                if (req.query.summary) {
+                    delete row.doc.html_content;
+                }
+            }
+            return row && postToTheme(row.doc, ddoc.blog.base_url);
+        }
         list.iterator = true;
         
         var data = ddoc.blog;
+        data.summary = Boolean(req.query.summary);
         data.single = Boolean(req.query.key);    // assume only one post per view key
         data.post = (data.single) ? list() : list;
         data.lastRow = function () {
@@ -34,6 +44,9 @@ function(head, req) {
         
         while (row) {
             var post = row.doc;
+            if (req.query.summary) {
+                delete post.html_content;
+            }
             post.alternate = ddoc.blog.base_url + post.path;
             send(Atom.entry(post));
             row = getRow();

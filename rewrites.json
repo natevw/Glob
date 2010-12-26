@@ -8,6 +8,15 @@
         "include_docs": true
     }
 },{
+    "from": "/blog/all/",
+    "to": "_list/posts/by_date",
+    "query": {
+        "reduce": false,
+        "descending":true,
+        "include_docs": true,
+        "summary": true
+    }
+},{
     "from": "/blog/:path",
     "to": "_list/posts/by_path",
     "query": {
