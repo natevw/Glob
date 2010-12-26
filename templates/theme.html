@@ -29,6 +29,7 @@
     body > header h1 { font-size: 250%; margin: 0em; }
     body > header h2 { font-size: 90%; font-weight: normal; margin: 0em; }
     
+    body > p { clear: both; padding: 2em; }
     article { clear: both; padding: 2em; max-width: 635px; }
     article { text-align: justify; line-height: 1.5em; }
     article > header h1 { font-size: 125%; margin: 0em; }
@@ -54,7 +55,7 @@
 <header{{#single}} class="single"{{/single}}>
 <img src="../../logo.png">
 {{#single}}
-<h1><a href="{{ base_url }}" class="subtle">a glob of nerd­ish­ness</a></h1>
+<h1><a href="{{ base_url }}" rel="archives" class="subtle">a glob of nerd­ish­ness</a></h1>
 {{/single}}{{^single}}
 <p>
 <a href="http://twitter.com/natevw" class="subtle">natevw</a> proudly presents:
@@ -82,9 +83,16 @@ written by <a href="http://twitter.com/natevw" class="subtle">natevw</a> on <tim
 </article>
 {{/ post }}
 
-{{^single}}
-<!-- TODO: "older" link -->
-{{/single}}
+{{^single}}{{#lastRow}}
+<p>
+<a href="{{ base_url }}?startkey={{ key }}&startkey_docid={{ id }}&skip=1" rel="next">Older posts</a>
+{{/lastRow}}{{/single}}
+
+{{^lastRow}}
+<!-- this really should be an actual lower-level 404 instead -->
+<p style="font-size: 125%;">
+No matching post{{^single}}s{{/single}} found.
+{{/lastRow}}
 
 <footer>
 <small>Copyright © 2007–2011 Nathan Vander Wilt. All rights reserved. Limit one offer per coupon.</small>

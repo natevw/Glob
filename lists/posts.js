@@ -5,12 +5,19 @@ function(head, req) {
         var Mustache = require("lib/mustache");
         var postToTheme = require("lib/glob").postToTheme;
         var path = require("lib/path").init(req);
-        var list = function () { var row = getRow(); return row && postToTheme(row.doc, ddoc.blog.base_url); }
+        var lastRow;
+        var list = function () { var row = getRow(); return row && (lastRow = row) && postToTheme(row.doc, ddoc.blog.base_url); }
         list.iterator = true;
         
         var data = ddoc.blog;
         data.single = Boolean(req.query.key);    // assume only one post per view key
         data.post = (data.single) ? list() : list;
+        data.lastRow = function () {
+            if (lastRow) {
+                lastRow.key = JSON.stringify(lastRow.key);
+            }
+            return lastRow;
+        };
         return Mustache.to_html(ddoc.templates.theme, data, ddoc.templates.partials);
     });
     provides("atom", function () {
@@ -35,6 +42,6 @@ function(head, req) {
         send(Atom.footer());
     });
     provides("json", function() {
-        return JSON.stringify(req, null, 4);
+        return JSON.stringify(req, null, 4) + JSON.stringify(getRow(), null, 4);
     });
 }
