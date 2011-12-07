@@ -2,25 +2,46 @@
     "from": "/blog/",
     "to": "_list/posts/by_date",
     "query": {
-        "reduce": false,
-        "descending":true,
-        "limit": 5,
-        "include_docs": true
+        "reduce": "false",
+        "descending": "true",
+        "limit": "5",
+        "include_docs": "true"
     }
 },{
     "from": "/blog/all/",
     "to": "_list/posts/by_date",
     "query": {
-        "reduce": false,
-        "descending":true,
-        "include_docs": true,
-        "summary": true
+        "reduce": "false",
+        "descending": "true",
+        "include_docs": "true",
+        "summary": "true"
     }
 },{
-    "from": "/blog/:path",
+    "from": "/blog/:path1/",
     "to": "_list/posts/by_path",
     "query": {
-        "include_docs": true,
-        "key": ":path"
+        "include_docs": "true",
+        "key": [":path1"]
+    }
+},{
+    "from": "/blog/:path1/:path2/",
+    "to": "_list/posts/by_path",
+    "query": {
+        "include_docs": "true",
+        "key": [":path1",":path2"]
+    }
+},{
+    "from": "/blog/:path1/:path2/:path3/",
+    "to": "_list/posts/by_path",
+    "query": {
+        "include_docs": "true",
+        "key": [":path1",":path2",":path3"]
+    }
+},{
+    "from": "/blog/:path1/:path2/:path3/:path4/",
+    "to": "_list/posts/by_path",
+    "query": {
+        "include_docs": "true",
+        "key": [":path1",":path2",":path3",":path4"]
     }
 }]
