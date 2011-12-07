@@ -1,5 +1,5 @@
 [{
-    "from": "/blog/",
+    "from": "/blog",
     "to": "_list/posts/by_date",
     "query": {
         "reduce": "false",
@@ -8,7 +8,7 @@
         "include_docs": "true"
     }
 },{
-    "from": "/blog/all/",
+    "from": "/blog/all",
     "to": "_list/posts/by_date",
     "query": {
         "reduce": "false",
@@ -17,28 +17,28 @@
         "summary": "true"
     }
 },{
-    "from": "/blog/:path1/",
+    "from": "/blog/:path1",
     "to": "_list/posts/by_path",
     "query": {
         "include_docs": "true",
         "key": [":path1"]
     }
 },{
-    "from": "/blog/:path1/:path2/",
+    "from": "/blog/:path1/:path2",
     "to": "_list/posts/by_path",
     "query": {
         "include_docs": "true",
         "key": [":path1",":path2"]
     }
 },{
-    "from": "/blog/:path1/:path2/:path3/",
+    "from": "/blog/:path1/:path2/:path3",
     "to": "_list/posts/by_path",
     "query": {
         "include_docs": "true",
         "key": [":path1",":path2",":path3"]
     }
 },{
-    "from": "/blog/:path1/:path2/:path3/:path4/",
+    "from": "/blog/:path1/:path2/:path3/:path4",
     "to": "_list/posts/by_path",
     "query": {
         "include_docs": "true",
