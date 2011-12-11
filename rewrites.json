@@ -17,6 +17,9 @@
         "summary": "true"
     }
 },{
+    "from": "/blog/resource/:doc_id/*",
+    "to": "../../:doc_id/*"
+},{
     "from": "/blog/:path1",
     "to": "_list/posts/by_path",
     "query": {
