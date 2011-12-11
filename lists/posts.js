@@ -82,7 +82,7 @@ function(head, req) {
             } else if (!post.html_content) {
                 setHTMLContent(post);
             }
-            post.alternate = ddoc.blog.base_url + post.path;
+            post.alternate = ddoc.blog.base_url + '/' + post.path;
             send(Atom.entry(post));
             row = getRow();
         }

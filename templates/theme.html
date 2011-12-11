@@ -53,15 +53,15 @@
 <body>
 
 <header{{#single}} class="single"{{/single}}>
-<img src="{{ base_url}}../../logo.png">
+<img src="{{ base_url}}/resource/_design/glob/logo.png">
 {{#single}}
 <h1><a href="{{ base_url }}" rel="archives" class="subtle">a glob of nerd­ish­ness</a></h1>
 {{/single}}{{^single}}
 <p>
 <a href="http://twitter.com/natevw" class="subtle">natevw</a> proudly presents:
 <h1>a glob of nerd­ish­ness</h1>
+<h2>powered by work over time.</h2>
 {{/single}}
-<h2>Powered by work over time.</h2>
 </header>
 
 {{# post }}
@@ -86,7 +86,7 @@ written by <a href="http://twitter.com/natevw" class="subtle">natevw</a> on <tim
 {{^single}}{{^summary}}{{#lastRow}}
 <p>
 <a href="{{ base_url }}?startkey={{ key }}&startkey_docid={{ id }}&skip=1" rel="next">Older posts</a><br>
-<a href="{{ base_url }}all/" rel="archives">All posts</a>
+<a href="{{ base_url }}/all" rel="archives">All posts</a>
 {{/lastRow}}{{/summary}}{{/single}}
 
 {{#summary}}{{#lastRow}}
@@ -98,9 +98,13 @@ written by <a href="http://twitter.com/natevw" class="subtle">natevw</a> on <tim
 <!-- this really should be an actual lower-level 404 instead -->
 <p style="font-size: 125%;">
 No matching post{{^single}}s{{/single}} found.
+<p>
+<a href="{{ base_url }}">Recent posts</a><br>
+<a href="http://www.extinguishedscholar.com/wpglob/">Archive of old blog</a>
 {{/lastRow}}
 
 <footer>
+
 <small>Copyright © 2007–2011 Nathan Vander Wilt. All rights reserved. Limit one offer per coupon.</small>
 </footer>
 
