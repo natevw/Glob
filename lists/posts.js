@@ -52,6 +52,7 @@ function(head, req) {
         list.iterator = true;
         
         var data = ddoc.blog;
+        data.atom_url = data.base_url + "/?format=atom";
         data.summary = Boolean(req.query.summary);
         data.single = Boolean(req.query.key);    // assume only one post per view key
         data.post = (data.single) ? list() : list;
@@ -72,7 +73,7 @@ function(head, req) {
         var row = getRow();
         var blog = ddoc.blog;
         blog.updated = (row) ? (row.doc.updated || row.doc.published) : toRFC3339(new Date());
-        blog.self = blog.base_url;
+        blog.self = blog.base_url + "/?format=atom";
         send(Atom.header(blog));
         
         while (row) {
@@ -82,7 +83,7 @@ function(head, req) {
             } else if (!post.html_content) {
                 setHTMLContent(post);
             }
-            post.alternate = ddoc.blog.base_url + '/' + post.path;
+            post.uri = post.alternate = ddoc.blog.base_url + '/' + post.path;
             send(Atom.entry(post));
             row = getRow();
         }

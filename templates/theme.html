@@ -5,7 +5,7 @@
 <title>{{#single}}{{#post}}{{ title }}{{/post}} - {{/single}}a glob of nerdishness</title>
 
 <link rel="index" title="a glob of nerdishness" href="{{ base_url }}">
-<link rel="alternate" type="application/atom+xml" title="Feed" href="{{ base_url }}?format=atom">
+<link rel="alternate" type="application/atom+xml" title="Feed" href="{{ atom_url }}">
 
 <style>
     /* http://html5doctor.com/html-5-reset-stylesheet/#comment-454 */
@@ -70,7 +70,7 @@
 {{#single}}
 <h1>{{ title }}</h1>
 <p>
-written by <a href="http://twitter.com/natevw" class="subtle">natevw</a> on <time datetime="{{ published }}" pubdate>{{ published_human }}</time>
+published by <a href="http://exts.ch" class="subtle">natevw</a> on <time datetime="{{ published }}" pubdate>{{ published_human }}</time>
 {{/single}}{{^single}}
 <time datetime="{{ published }}" pubdate>{{ published_human }}</time>
 <h1><a href="{{ url }}" rel="bookmark" class="expected">{{ title }}</a></h1>
@@ -79,7 +79,7 @@ written by <a href="http://twitter.com/natevw" class="subtle">natevw</a> on <tim
 
 {{{ html_content }}}
 
-{{> comments }}
+{{^summary}}{{> comments }}{{/summary}}
 </article>
 {{/ post }}
 
