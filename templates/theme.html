@@ -53,7 +53,7 @@
 <body>
 
 <header{{#single}} class="single"{{/single}}>
-<img src="{{ base_url}}/resource/_design/glob/logo.png">
+<img src="{{ base_url}}/resource/_design/glob/logo.png" alt>
 {{#single}}
 <h1><a href="{{ base_url }}" rel="archives" class="subtle">a glob of nerd­ish­ness</a></h1>
 {{/single}}{{^single}}
@@ -70,7 +70,7 @@
 {{#single}}
 <h1>{{ title }}</h1>
 <p>
-published by <a href="http://exts.ch" class="subtle">natevw</a> on <time datetime="{{ published }}" pubdate>{{ published_human }}</time>
+published by <a href="http://exts.ch" class="subtle">natevw</a> on <a href="{{ url }}" rel="bookmark" class="subtle"><time datetime="{{ published }}" pubdate>{{ published_human }}</time></a>
 {{/single}}{{^single}}
 <time datetime="{{ published }}" pubdate>{{ published_human }}</time>
 <h1><a href="{{ url }}" rel="bookmark" class="expected">{{ title }}</a></h1>
@@ -79,13 +79,16 @@ published by <a href="http://exts.ch" class="subtle">natevw</a> on <time datetim
 
 {{{ html_content }}}
 
-{{^summary}}{{> comments }}{{/summary}}
+{{^summary}}
+{{#single}}<div id="disqus_thread"></div><script>var disqus_identifier = '{{ _id }}';</script>{{/single}}
+{{^single}}<a href="{{ url }}#disqus_thread" data-disqus-identifier="{{ _id }}">comments</a>{{/single}}
+{{/summary}}
 </article>
 {{/ post }}
 
 {{^single}}{{^summary}}{{#lastRow}}
 <p>
-<a href="{{ base_url }}?startkey={{ key }}&startkey_docid={{ id }}&skip=1" rel="next">Older posts</a><br>
+<a href="{{ base_url }}?startkey={{ key }}&amp;startkey_docid={{ id }}&amp;skip=1" rel="next">Older posts</a><br>
 <a href="{{ base_url }}/all" rel="archives">All posts</a>
 {{/lastRow}}{{/summary}}{{/single}}
 
@@ -108,5 +111,32 @@ No matching post{{^single}}s{{/single}} found.
 <small>Copyright © 2012 Nathan Vander Wilt. All rights reserved. Limit one offer per coupon.</small>
 </footer>
 
+<script type="text/javascript">
+    var disqus_shortname = 'nerdglob'; // required: replace example with your forum shortname
+    //var disqus_developer = 1;
+</script>
+{{#single}}
+<script type="text/javascript">
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+{{/single}}
+{{^single}}
+<script type="text/javascript">
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+{{/single}}
 </body>
 </html>
