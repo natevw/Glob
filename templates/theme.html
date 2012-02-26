@@ -35,7 +35,10 @@
     article > header { margin-bottom: 1em; }
     article > header h1 { font-size: 105%; margin: 0; }
     article > header p { font-size: 75%; margin: 0; padding: 0; text-indent: 0; }
-    article p { text-indent: 1.5em; margin: 0; margin-left: -1.5em; margin-right: -1.5em; }
+    article .content { margin: 0 -1.5em; }
+    article .content p { text-indent: 1.5em; margin: 0; }
+    article .content li > p { text-indent: 0; }
+    #disqus_thread { margin-top: 5em; }
     
     a:link { color: #008; }
     a:visited { color: #559; }
@@ -77,7 +80,9 @@ published by <a href="http://exts.ch" class="subtle">natevw</a> on <a href="{{ u
 {{/single}}
 </header>
 
+<section class="content">
 {{{ html_content }}}
+</section>
 
 {{^summary}}
 {{#single}}<div id="disqus_thread"></div><script>var disqus_identifier = '{{ _id }}';</script>{{/single}}
