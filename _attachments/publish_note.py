@@ -60,7 +60,7 @@ for name, file in post['_attachments'].iteritems():
     del file['revpos']
     if file['content_type'] == "application/octet-stream":
         type = mimetypes.guess_type(name)
-        if type:
+        if type[0]:
             file['content_type'] = type[0]
 
 print _transport('POST', GLOBS_DB, post)
