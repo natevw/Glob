@@ -52,8 +52,8 @@ post = note
 
 post['path'] = POST_PATH
 post['published'] = PUBLISH_TIME
-post['markdown_content'] = re.sub('#.*?\n\n', '', note['content'])      # remove heading from body
-post['title'] = re.search('#\s*(.*?)\n\n', note['content']).group(1)    # extract heading for title
+post['markdown_content'] = re.sub('#.*?\n\n', '', note['content'], count=1)     # remove first heading from body
+post['title'] = re.search('#\s*(.*?)\n\n', note['content']).group(1)            # extract heading for title
 del post['content']
 
 for name, file in post['_attachments'].iteritems():
