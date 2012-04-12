@@ -56,7 +56,7 @@ post['markdown_content'] = re.sub('#.*?\n\n', '', note['content'], count=1)     
 post['title'] = re.search('#\s*(.*?)\n\n', note['content']).group(1)            # extract heading for title
 del post['content']
 
-for name, file in post['_attachments'].iteritems():
+for name, file in post.get('_attachments', {}).iteritems():
     del file['revpos']
     if file['content_type'] == "application/octet-stream":
         type = mimetypes.guess_type(name)
