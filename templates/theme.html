@@ -11,7 +11,7 @@
     /* http://html5doctor.com/html-5-reset-stylesheet/#comment-454 */
     body { margin:0; padding:0; }
     p { margin: 1em 0; }
-    
+
     /* http://doctype.com/html5-reset-css#answer_43 */
     img { border: none; }
     a { outline-style: none; }
@@ -21,14 +21,14 @@
     body { font-family: Palatino; }
     header { font-family: Monaco, monospace; }
     footer { margin: 0.5em; font-family: Monaco, monospace; }
-    
+
     body > header { padding-top: 0em; }
     body > header img { float: left; height: 200px; }
     body > header.single img { height: 100px; }
     body > header p { font-size: 80%; font-style: italic; margin: 0em; padding-top: 2em; }
     body > header h1 { font-size: 250%; margin: 0em; }
     body > header h2 { font-size: 90%; font-weight: normal; margin: 0em; }
-    
+
     body > p { clear: both; padding: 2em; }
     article { clear: both; padding: 2em 5em; max-width: 635px; }
     article { text-align: justify; line-height: 1.5em; }
@@ -39,15 +39,15 @@
     article .content p { text-indent: 1.5em; margin: 0; }
     article .content li > p { text-indent: 0; }
     #disqus_thread { margin-top: 5em; }
-    
+
     a:link { color: #008; }
     a:visited { color: #559; }
     a:hover { color: #900; }
-    
+
     a:link.subtle  { color: inherit; text-decoration: none; }
     a:visited.subtle  { color: inherit; text-decoration: none; }
     a:hover.subtle { color: #008; text-decoration: underline; }
-    
+
     a:link.expected  { color: inherit; }
     a:visited.expected  { color: inherit; }
     a:hover.expected { color: #008; }
@@ -93,6 +93,7 @@ published by <a href="http://exts.ch" class="subtle">natevw</a> on <a href="{{ u
 
 {{^single}}{{^summary}}{{#lastRow}}
 <p>
+<input type="button" onclick="(function(){var z=document.createElement('script');z.src='https://www.subtome.com/load.js';document.body.appendChild(z);})()" value="Follow"></br>
 <a href="{{ base_url }}?startkey={{ key }}&amp;startkey_docid={{ id }}&amp;skip=1" rel="next">Older posts</a><br>
 <a href="{{ base_url }}/all" rel="archives">All posts</a>
 {{/lastRow}}{{/summary}}{{/single}}
