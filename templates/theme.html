@@ -52,6 +52,9 @@
     a:visited.expected  { color: inherit; }
     a:hover.expected { color: #008; }
 </style>
+<script> // HT https://github.com/natevw/Glob/pull/1
+    function subtome(){var z=document.createElement('script');z.src='https://www.subtome.com/load.js';document.body.appendChild(z);}
+</script>
 </head>
 <body>
 
@@ -73,7 +76,7 @@
 {{#single}}
 <h1>{{ title }}</h1>
 <p>
-published by <a href="http://exts.ch" class="subtle">natevw</a> on <a href="{{ url }}" rel="bookmark" class="subtle"><time datetime="{{ published }}" pubdate>{{ published_human }}</time></a>
+published by <a href="http://exts.ch" class="subtle">natevw</a> on <a href="{{ url }}" rel="bookmark" class="subtle"><time datetime="{{ published }}" pubdate>{{ published_human }}</time></a> — <a href="javascript:subtome();">Subscribe</a>
 {{/single}}{{^single}}
 <time datetime="{{ published }}" pubdate>{{ published_human }}</time>
 <h1><a href="{{ url }}" rel="bookmark" class="expected">{{ title }}</a></h1>
@@ -94,7 +97,8 @@ published by <a href="http://exts.ch" class="subtle">natevw</a> on <a href="{{ u
 {{^single}}{{^summary}}{{#lastRow}}
 <p>
 <a href="{{ base_url }}?startkey={{ key }}&amp;startkey_docid={{ id }}&amp;skip=1" rel="next">Older posts</a><br>
-<a href="{{ base_url }}/all" rel="archives">All posts</a>
+<a href="{{ base_url }}/all" rel="archives">All posts</a><br>
+<br><a href="javascript:subtome();">Subscribe</a>
 {{/lastRow}}{{/summary}}{{/single}}
 
 {{#summary}}{{#lastRow}}
@@ -112,7 +116,6 @@ No matching post{{^single}}s{{/single}} found.
 {{/lastRow}}
 
 <footer>
-
 <small>Copyright © 2012 Nathan Vander Wilt. All rights reserved. Limit one offer per coupon.</small>
 </footer>
 
