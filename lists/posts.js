@@ -56,6 +56,7 @@ function(head, req) {
         data.summary = Boolean(req.query.summary);
         data.single = Boolean(req.query.key);    // assume only one post per view key
         data.post = (data.single) ? list() : list;
+        if (data.single) getRow();    // WORKAROUND: https://gist.github.com/natevw/d956367d6bf828ddbe13d12e5ad96844
         data.lastRow = function () {
             if (lastRow) {
                 lastRow.key = JSON.stringify(lastRow.key);
